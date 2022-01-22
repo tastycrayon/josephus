@@ -1,25 +1,23 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { useState, useEffect } from "react";
+import Canvas from "./components/Canvas";
+import Input from "./components/Input";
+import { answer, josephus } from "./Helper/helper";
 
 function App() {
+  const [numberOfPerson, setNumberOfPerson] = useState(10);
+  const [deadpool, setDeadpool] = useState<number[]>([]);
+
+  const safeNumberOfPerson = numberOfPerson || 1;
+  useEffect(() => {
+    console.log("answer", answer(safeNumberOfPerson));
+    console.log("josephus", josephus(setDeadpool, 1, safeNumberOfPerson));
+  }, [safeNumberOfPerson]);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <Canvas numberOfPerson={safeNumberOfPerson} deadpool={deadpool} />
+      <Input value={numberOfPerson} setValue={setNumberOfPerson} />
+    </>
   );
 }
 
