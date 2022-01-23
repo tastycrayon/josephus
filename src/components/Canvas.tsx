@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import Circle from "../Helper/Circle";
 
 function init(
@@ -23,8 +23,9 @@ function init(
   for (let i = 1; i <= numberOfCircles; i++) {
     const x = canvasWidth + distance * Math.cos(radian * i);
     const y = canvasHeight + distance * Math.sin(radian * i);
-    const color = deadpool.includes(i) ? "black" : "blue";
-    circles.push(new Circle(i, x, y, radius, color));
+    const isDead = deadpool.includes(i);
+    const color = isDead ? "lightgray" : "blue";
+    circles.push(new Circle(i, x, y, radius, color, isDead));
   }
 
   function animate() {
@@ -36,7 +37,6 @@ function init(
     });
   }
   animate();
-  console.log(circles);
   return circles;
 }
 
@@ -65,7 +65,6 @@ const Canvas: React.FC<PropTypes> = ({
     handleResize(); //initate at load
 
     window.addEventListener("resize", handleResize);
-    console.log(deadpool);
     return () => window.removeEventListener("resize", handleResize);
   }, [numberOfPerson, deadpool]);
   return <canvas ref={canvasRef}></canvas>;

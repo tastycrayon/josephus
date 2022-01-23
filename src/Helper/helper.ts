@@ -1,4 +1,4 @@
-export const answer = (numberOfPerson: number) => {
+export const binaryJosepus = (numberOfPerson: number) => {
   const numberOfPersonBinary = numberOfPerson.toString(2);
   const firstChar = numberOfPersonBinary.slice(0, 1);
   const remainingChar = numberOfPersonBinary.substring(1);
@@ -11,15 +11,18 @@ export function josephus(
   index: number
 ): any {
   const deadPool: number[] = [];
+  const history: string[] = [];
   const recursion = (persons: number[], k: number, index: number): number => {
     if (persons.length === 1) {
       return persons[0];
     }
     //if person after that is not dead then kill him
+    const temp = persons[index] || 1;
     index = (index + k) % persons.length;
 
     if (index > -1) {
       const d = persons.splice(index, 1);
+      history.push(`${temp} kills ${d[0]}`);
       deadPool.push(d[0]);
     }
 
@@ -35,5 +38,6 @@ export function josephus(
 
   const survivor = recursion(persons, k, index);
   setPersonDead(deadPool);
+  console.log(history);
   return survivor;
 }
