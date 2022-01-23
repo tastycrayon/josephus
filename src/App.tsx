@@ -7,7 +7,8 @@ function App() {
   const [numberOfPerson, setNumberOfPerson] = useState(10);
   const [deadpool, setDeadpool] = useState<number[]>([]);
   const [answer, setAnswer] = useState<string>("");
-  const safeNumberOfPerson = numberOfPerson || 1;
+  const safeNumberOfPerson =
+    numberOfPerson && numberOfPerson > 0 ? numberOfPerson : 1;
   useEffect(() => {
     const binaryAns = `f(${safeNumberOfPerson})=${binaryJosepus(
       safeNumberOfPerson

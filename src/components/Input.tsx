@@ -12,6 +12,7 @@ const Input: React.FC<PropTypes> = ({ answer, value, setValue }: PropTypes) => {
       <input
         type="number"
         value={value}
+        min={0}
         onChange={(e) => setValue(parseInt(e.target.value) || 0)}
       />
       <div className="answer">{answer}</div>
