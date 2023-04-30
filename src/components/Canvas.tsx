@@ -17,14 +17,14 @@ function init(
   const distance = radiiOfLargeCircle / 2 - radius;
 
   let circles: any = [];
-  const canvasWidth = canvas.width / 2;
-  const canvasHeight = canvas.height / 2;
+  const canvasCenterX = canvas.width / 2;
+  const canvasCenterY = canvas.height / 2;
 
   for (let i = 1; i <= numberOfCircles; i++) {
-    const x = canvasWidth + distance * Math.cos(radian * i);
-    const y = canvasHeight + distance * Math.sin(radian * i);
+    const x = canvasCenterX + distance * Math.cos(radian * i);
+    const y = canvasCenterY + distance * Math.sin(radian * i);
     const isDead = deadpool.includes(i);
-    const color = isDead ? "lightgray" : "blue";
+    const color = isDead ? "#ff4500" : "rgb(16, 193, 125)";
     circles.push(new Circle(i, x, y, radius, color, isDead));
   }
 
@@ -65,7 +65,8 @@ const Canvas: React.FC<PropTypes> = ({
     handleResize(); //initate at load
 
     window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
+    return () =>{
+       window.removeEventListener("resize", handleResize)};
   }, [numberOfPerson, deadpool]);
   return <canvas ref={canvasRef}></canvas>;
 };

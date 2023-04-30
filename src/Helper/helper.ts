@@ -7,11 +7,12 @@ export const binaryJosepus = (numberOfPerson: number) => {
 
 export function josephus(
   setPersonDead: React.Dispatch<React.SetStateAction<number[]>>,
+  setHistory: React.Dispatch<React.SetStateAction<string[]>>,
   k: number,
   index: number
 ): any {
   const deadPool: number[] = [];
-  const history: string[] = [];
+  const thisHistory: string[] = [];
   const recursion = (persons: number[], k: number, index: number): number => {
     if (persons.length === 1) {
       return persons[0];
@@ -22,11 +23,13 @@ export function josephus(
 
     if (index > -1) {
       const d = persons.splice(index, 1);
-      history.push(`${temp} kills ${d[0]}`);
+      thisHistory.push(`Person ${temp} murders person ${d[0]}`);
       deadPool.push(d[0]);
     }
 
-    return recursion(persons, k, index);
+    const result = recursion(persons, k, index);
+    setHistory(thisHistory)
+    return result
   };
 
   const getPersons = (index: number): number[] => {
